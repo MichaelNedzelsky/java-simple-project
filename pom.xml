@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>maven_example_project</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+
+    <modules>
+        <module>subprojectA</module>
+        <module>subprojectB</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source> <!-- Use your Java version -->
+                    <target>1.8</target> <!-- Use your Java version -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <profiles>
+        <profile>
+            <!-- First profile -->
+            <id>first-profile</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!-- Second profile activated by system property -->
+            <id>second-profile-system-property</id>
+            <activation>
+                <property>
+                    <name>use</name>
+                    <value>second</value>
+                </property>
+            </activation>
+            <modules>
+                <module>subprojectC</module>
+            </modules>
+        </profile>
+        <profile>
+            <!-- Second profile activated by environment variable -->
+            <id>second-profile-env-var</id>
+            <activation>
+                <property>
+                    <name>env.SET_SECOND</name>
+                    <value>T</value>
+                </property>
+            </activation>
+            <modules>
+                <module>subprojectC</module>
+            </modules>
+        </profile>
+    </profiles>
+</project>
+
